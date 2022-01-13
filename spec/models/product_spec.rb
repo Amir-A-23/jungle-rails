@@ -62,5 +62,25 @@ RSpec.describe Product, type: :model do
       expect(@product.errors.full_messages).to include("Price can't be blank")
     end
 
+    
+    it "tests that saved sucessfully without quantity" do
+
+      @category = Category.new
+      @category.id = 4
+      @category.name = 'Misc'
+      
+      @product = Product.new
+      @product.name = "Misc product"
+      @product.price = 999
+      @product.quantity = nil
+      @product.category_id = @category
+
+      @category.products = [@product]
+      @product.save
+      
+      expect(@product).to be_invalid
+      expect(@product.errors.full_messages).to include("Quantity can't be blank")
+    end
+
   end
 end
