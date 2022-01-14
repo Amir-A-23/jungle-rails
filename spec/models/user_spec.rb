@@ -116,5 +116,41 @@ RSpec.describe User, type: :model do
     end
 
 
+    describe '.authenticate_with_credentials' do
+
+      before do
+        @user = User.create!(first_name: 'Amir',
+                        last_name: 'Ali',
+                        email: 'username@abc.com',
+                        password: '12345',
+                        password_confirmation: '12345',
+                        id: 1)
+      end
+  
+      it 'is not valid if the email is wrong' do
+        user = @user
+        email = 'wrong_email'
+        expect(User.authenticate_with_credentials(email, user.password)).to_not eq user
+      end
+  
+      it 'is not valid if the password is wrong' do
+        user = @user
+        password = 'wrong_password'
+        expect(User.authenticate_with_credentials(user.email, password)).to_not eq password
+      end
+  
+      it 'is valid even with extra whitespaces at the edges' do
+        user = @user
+        email = ' username@abc.com  '
+        expect(User.authenticate_with_credentials(email, user.password)).to eq user
+      end
+  
+      it 'is valid even with the wrong email case' do
+        user = @user
+        email = 'UsERNamE@abC.cOm'
+        expect(User.authenticate_with_credentials(email, user.password)).to eq user
+      end
+  
+    end
   end
 end
