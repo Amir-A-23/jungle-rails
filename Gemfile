@@ -45,6 +45,9 @@ group :development, :test do
   gem 'byebug'
   gem 'quiet_assets'
   gem 'dotenv-rails'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -53,12 +56,6 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-end
-
-group :test do
-  gem 'capybara'
-  gem 'poltergeist'
-  gem 'database_cleaner'
 end
 
 group :production do
